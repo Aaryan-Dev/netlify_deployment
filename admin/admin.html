@@ -4,107 +4,148 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Resturant</title>
-
-    <link rel="stylesheet" href="resturant.css" />
+    <title>admin Dashboard</title>
   </head>
   <body>
-   <div id="navbar">
-      <a href="#">Sign up</a>
-      <a href="./login/login.html">Log in</a>
-      <a href="./book/book.html">Books</a>
-        <a href="../borrowed/borrowed.html">Borrowed Books/a>
-    </div>
-    <div id="pagination">
-      <button id="dec" onclick="dec()"></button>
-      <button id="inc" onclick="inc()"></button>
+    <div id="navbar">
+      <a href="#">Admin Dashboard</a>
+      <a href="./users.html">Users</a>
+      <a href="../index.html">Sign up</a>
+      <a href="../login/login.html">Log in</a>
     </div>
 
-    <div id="diaplay"></div>
+    <h3>create</h3>
+
+    <input type="text" placeholder="roll_no" id="roll" />
+    <input type="text" placeholder="name" id="name" />
+    <button onclick="create()">create</button>
+
+    <h3>read</h3>
+    <input type="number" placeholder="roll_no" id="id" />
+    <button onclick="read()">read</button>
+
+    <div id="read"></div>
+    <div id="weed"></div>
+    <h3>update</h3>
+    <input type="text" placeholder="roll_no" id="roll2" />
+    <input type="text" placeholder="name" id="name2" />
+    <button onclick="update()">update(Put)</button>
+
+    <h3>delete</h3>
+    <input type="text" placeholder="roll_no" id="roll3" />
+    <button onclick="remove()">remove</button>
   </body>
 </html>
 
 <script>
-  //   id: 61;
-  //   image: "https://picsum.photos/200";
-  //   name: "Labarre";
-  //   number_of_votes: 542;
-  //   price_starts_from: 150;
-  //   rating: 1.5;
-  //   type: "cafe";
-  function display(data) {
-    console.log(data);
+  function create() {
+    let roll = document.querySelector("#roll").value;
+    let name = document.querySelector("#name").value;
 
-    data.forEach((el, index) => {
-      div = document.createElement("div");
+    let create = {
+      id: roll,
+      Name: name,
+    };
 
-      img = document.createElement("img");
-      img.src = el.image;
+    create = JSON.stringify(create);
 
-      nam = document.createElement("h2");
-      nam.innerHTML = el.name;
+    const url = `http://127.0.0.1:3000/products`;
 
-      number_of_votes = document.createElement("h3");
-      number_of_votes.innerHTML = el.number_of_votes;
+    fetch(url, {
+      method: "POST",
+      body: create,
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        console.log(res);
+      });
+  }
+  // ***********************************************************************************************
+  function read() {
+    const url = `http://127.0.0.1:3000/products/${
+      document.querySelector("#id").value
+    }`;
 
-      price_starts_from = document.createElement("h4");
-      price_starts_from.innerHTML = el.price_starts_from;
+    fetch(url)
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        console.log(res);
 
-      rating = document.createElement("h5");
-      rating.innerHTML = el.rating;
-
-      type = document.createElement("h5");
-      type.innerHTML = el.type;
-
-      div.append(img, nam, number_of_votes, price_starts_from, rating, type);
-      document.querySelector("#diaplay").append(div);
-    });
+        document.querySelector("#read").innerText = res.id + "   " + res.Name;
+      });
   }
 
-  let token = JSON.parse(localStorage.getItem("r_token"));
+  // ***********************************************************************************************
+  function update() {
+    let roll = document.querySelector("#roll2").value;
+    let name = document.querySelector("#name2").value;
 
-  if (token !== "QpwL5tke4Pnpja7X4") {
-    window.location.href = "../index.html";
+    create = JSON.stringify(create);
+
+    const url = `http://127.0.0.1:3000/products/${
+      document.querySelector("#roll2").value
+    }`;
+
+    fetch(url, {
+      method: "PATCH",
+      body: JSON.stringify(
+        // ****
+        {
+          Name: name,
+        }
+        // ****
+      ),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        console.log(res);
+      });
   }
+  // // ***********************************************************************************************
+  function remove() {
+    let roll = document.querySelector("#roll3").value;
 
-  let page_no = JSON.parse(localStorage.getItem("page")) || 1;
+    const url = `http://127.0.0.1:3000/products/${
+      document.querySelector("#roll3").value
+    }`;
 
-  fetch(
-    `https://dbioz2ek0e.execute-api.ap-south-1.amazonaws.com/mockapi/getrestaurants?page=${page_no}&limit=20`
-  )
+    fetch(url, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        console.log(res);
+      });
+  }
+  // ***********************************************************************************************
+  const url = `http://127.0.0.1:3000/products`;
+
+  fetch(url)
     .then((res) => {
       return res.json();
     })
     .then((res) => {
-      display(res.data);
-    })
-    .catch((err) => {
-      console.log(err);
+      console.log(res);
+
+      res.forEach((elem) => {
+        let div = document.createElement("div");
+        document.querySelector("#weed").append(div);
+
+        let id = document.createElement("h5");
+        id.innerText = elem.id + " " + elem.Name;
+
+        div.append(id);
+      });
     });
-
-  if (JSON.parse(localStorage.getItem("page")) === 5) {
-    document.querySelector("#inc").disabled = true;
-  }
-  if (JSON.parse(localStorage.getItem("page")) === 1) {
-    document.querySelector("#dec").disabled = true;
-  }
-  document.querySelector("#inc").innerHTML = page_no + 1;
-  document.querySelector("#dec").innerHTML = page_no;
-  const inc = (page_no) => {
-    if (JSON.parse(localStorage.getItem("page")) !== 5) {
-      let change_page = JSON.parse(localStorage.getItem("page")) || 1;
-      localStorage.setItem("page", change_page + 1);
-      location.reload();
-    }
-  };
-
-  const dec = (page_no) => {
-    if (JSON.parse(localStorage.getItem("page")) !== 1) {
-      let change_page = JSON.parse(localStorage.getItem("page"));
-
-      localStorage.setItem("page", change_page - 1);
-
-      location.reload();
-    }
-  };
 </script>

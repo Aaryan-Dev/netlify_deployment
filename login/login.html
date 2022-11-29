@@ -29,36 +29,6 @@
 </html>
 
 <script>
-  // const login = () => {
-  //   const login_data = {
-  //     email: document.querySelector("#email").value,
-  //     password: document.querySelector("#password").value,
-  //   };
-  //   window.event.preventDefault();
-  //   console.log(login_data);
-  //   fetch("https://reqres.in/api/login", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(login_data),
-  //   })
-  //     .then((res) => {
-  //       return res.json();
-  //     })
-  //     .then((res) => {
-  //       console.log(res.token);
-  //       localStorage.setItem("r_token", JSON.stringify(res.token));
-
-  //       if (res.token === "QpwL5tke4Pnpja7X4") {
-  //         window.location.href = "./resturant/resturant.html";
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
-
   let user_data = JSON.parse(localStorage.getItem("user_data")) || [];
 
   const login = () => {
@@ -68,25 +38,32 @@
       password: document.querySelector("#password").value,
     };
 
-    let value = undefined;
-    for (let i = 0; i < user_data.length; i++) {
-      if (
-        login_data.email === user_data[i].email &&
-        login_data.password === user_data[i].password
-      ) {
-        value = user_data[i];
-        break;
-      } else {
-        value = undefined;
-      }
-    }
-
-    if (value !== undefined) {
-      localStorage.setItem("auth", JSON.stringify(value));
-      alert("login successful");
-      window.location.href = "../book/book.html";
+    if (
+      login_data.email == "admin@gmail.com" &&
+      login_data.password == "masai"
+    ) {
+      window.location.href = "../admin/admin.html";
+      console.log(login_data.email, login_data.password);
     } else {
-      alert("login failed");
+      let value = undefined;
+      for (let i = 0; i < user_data.length; i++) {
+        if (
+          login_data.email === user_data[i].email &&
+          login_data.password === user_data[i].password
+        ) {
+          value = user_data[i];
+          break;
+        } else {
+          value = undefined;
+        }
+      }
+      if (value !== undefined) {
+        localStorage.setItem("auth", JSON.stringify(value));
+        alert("login successful");
+        window.location.href = "../book/book.html";
+      } else {
+        alert("login failed");
+      }
     }
   };
 </script>
