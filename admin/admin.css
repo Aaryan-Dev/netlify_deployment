@@ -29,3 +29,22 @@
     margin: 1%;
 
 }
+
+table {
+    width: 90%;
+    margin: auto;
+    background-color: black;
+    color: white;
+}
+
+#Books {
+    width: 90%;
+    margin: auto;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin: auto;
+    margin-top: 1%;
+}
