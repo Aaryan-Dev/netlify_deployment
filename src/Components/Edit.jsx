@@ -16,6 +16,7 @@ let initial = {
 function Edit({ id }) {
   const [form, setform] = useState(initial);
   const navigate = useNavigate();
+  // const [refresh, setRefresh] = useState(false);
 
   // const value = useContext(Con);
 
@@ -39,8 +40,11 @@ function Edit({ id }) {
       })
       .then((res) => {
         // setToken(res.token);
-        alert("Edited Successfully");
+        navigate("/");
+        // window.location.reload();
+        // alert("Edited Successfully");
       });
+    alert("Edited Successfully");
   };
 
   const sub = (e) => {
@@ -54,7 +58,7 @@ function Edit({ id }) {
     ) {
       alert("Enter all Fields");
     } else {
-      editUser(form).then(() => navigate(`/signin`));
+      editUser(form);
     }
   };
 
