@@ -26,10 +26,7 @@ const Navbar = () => {
         </Link>
       </div>
       <div>
-        <button
-          style={{ background: "red", color: "white", padding: "10%" }}
-          onClick={() => logoutUser()}
-        >
+        <button id="log" onClick={() => logoutUser()}>
           <pre>Log Out</pre>
         </button>
       </div>

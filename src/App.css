@@ -43,6 +43,22 @@
 
 }
 
+#log{
+  
+      background-color: red;
+      color: white;
+      padding: 10%
+    
+}
+
+#log:hover{
+
+  background-color: white;
+  color:  red;
+  font-weight: 600;
+   cursor: pointer;
+}
+
 .foll{
 
   background-color: aqua;
