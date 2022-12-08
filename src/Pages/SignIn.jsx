@@ -44,8 +44,8 @@ function SignIn() {
   };
 
   return (
-    <div>
-      <form onSubmit={sub} data-testid="login-form">
+    <div id="get">
+      <form id="form" onSubmit={sub} data-testid="login-form">
         <div>
           <label>
             Username:
@@ -62,7 +62,7 @@ function SignIn() {
 
         <div>
           <label>
-            Email
+            Email:
             <input
               onChange={handle}
               name="email"
@@ -75,7 +75,7 @@ function SignIn() {
         </div>
         <div>
           <label>
-            Password
+            Password:
             <input
               onChange={handle}
               value={form.password}

@@ -66,7 +66,7 @@ function AppContextProvider(props) {
 
   const logoutUser = () => {
     setAuth(false);
-    setToken(null);
+    // setToken(null);
   };
 
   return (

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../App.css";
 // import { Link } from "react-router-dom";
 // import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -50,8 +51,8 @@ function SignUp() {
   };
 
   return (
-    <div>
-      <form onSubmit={sub} data-testid="login-form">
+    <div id="get">
+      <form id="form" onSubmit={sub} data-testid="login-form">
         <div>
           <label>
             Username:
@@ -65,7 +66,9 @@ function SignUp() {
             />
           </label>
         </div>
-        <img src="https://i.pravatar.cc/200" alt="img" />
+        <div>
+          <img src="https://i.pravatar.cc/200" alt="img" />
+        </div>
         <div>
           <label>
             Full Name:
@@ -81,7 +84,7 @@ function SignUp() {
         </div>
         <div>
           <label>
-            Email
+            Email:
             <input
               onChange={handle}
               name="email"
@@ -94,7 +97,7 @@ function SignUp() {
         </div>
         <div>
           <label>
-            Password
+            Password:
             <input
               onChange={handle}
               value={form.password}
