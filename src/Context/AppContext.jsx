@@ -22,7 +22,7 @@ function AppContextProvider(props) {
         return res.json();
       })
       .then((res) => {
-        setToken(res.token);
+        // setToken(res.token);
       });
   };
   console.log(isAuth);

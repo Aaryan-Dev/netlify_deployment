@@ -4,11 +4,13 @@ import { useParams } from "react-router-dom";
 import "../App.css";
 import { useContext } from "react";
 import { Con } from "../Context/AppContext";
+import Edit from "../Components/Edit";
 
 const UserProfile = () => {
   const param = useParams();
   const [obj, setObj] = useState({});
   // const navigate = useNavigate();
+  const [toggle, setToggle] = useState(false);
   const value = useContext(Con);
   const { logoutUser } = value;
 
@@ -34,12 +36,18 @@ const UserProfile = () => {
         return res.json();
       })
       .then((res) => {
-        alert("Account will be deleted");
+        alert("Account is deleted");
         logoutUser();
       });
   };
 
-  const editIt = (id) => {};
+  const editIt = (id) => {
+    if (toggle) {
+      setToggle(false);
+    } else {
+      setToggle(true);
+    }
+  };
 
   return (
     <div id="user">
@@ -60,9 +68,10 @@ const UserProfile = () => {
       <div id="row">
         <div>
           <button onClick={() => editIt(obj.id)} id="edit" className="but">
-            <pre> Edit Profile</pre>
+            <pre>{!toggle ? "Edit Profile" : "Close"}</pre>
           </button>
         </div>
+        {toggle ? <Edit id={obj.id} /> : null}
         <div>
           <button onClick={() => deleteIt(obj.id)} id="delete" className="but">
             <pre>Delete Account</pre>

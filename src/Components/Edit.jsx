@@ -1,37 +1,46 @@
 import { useState } from "react";
 import "../App.css";
 // import { Link } from "react-router-dom";
-import { Navigate } from "react-router-dom";
+// import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-import { useContext } from "react";
-import { Con } from "../Context/AppContext";
+// import { useContext } from "react";
+// import { Con } from "../Context/AppContext";
 
 let initial = {
-  username: "",
   fullName: "",
   email: "",
   password: "",
 };
 
-function SignUp() {
+function Edit({ id }) {
   const [form, setform] = useState(initial);
-  // const [text, setText] = useState("");
   const navigate = useNavigate();
 
-  const value = useContext(Con);
+  // const value = useContext(Con);
 
-  const { isAuth, loginUser } = value;
-  // console.log(isAuth);
-
-  if (isAuth) {
-    return <Navigate to="/signin" />;
-  }
+  // const { loginUser } = value;
 
   const handle = (e) => {
-    // console.log(e.target);
     const { name, value } = e.target;
     setform({ ...form, [name]: value });
+  };
+
+  const editUser = (form) => {
+    let body1 = JSON.stringify(form);
+
+    fetch(`https://json-db.onrender.com/user/${id}`, {
+      method: "PATCH",
+      body: body1,
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        // setToken(res.token);
+        alert("Edited Successfully");
+      });
   };
 
   const sub = (e) => {
@@ -45,30 +54,13 @@ function SignUp() {
     ) {
       alert("Enter all Fields");
     } else {
-      loginUser(form);
-      navigate("/signin");
+      editUser(form).then(() => navigate(`/signin`));
     }
   };
 
   return (
     <div id="get">
       <form id="form" onSubmit={sub} data-testid="login-form">
-        <div>
-          <label>
-            Username:
-            <input
-              onChange={handle}
-              name="username"
-              value={form.username}
-              data-testid="username-input"
-              type="text"
-              placeholder="username"
-            />
-          </label>
-        </div>
-        <div>
-          <img src="https://i.pravatar.cc/200" alt="img" />
-        </div>
         <div>
           <label>
             Full Name:
@@ -109,10 +101,10 @@ function SignUp() {
           </label>
         </div>
         <div>
-          <input data-testid="form-submit" type="submit" value="SUBMIT" />
+          <input data-testid="form-submit" type="submit" value="Edit" />
         </div>
       </form>
     </div>
   );
 }
-export default SignUp;
+export default Edit;

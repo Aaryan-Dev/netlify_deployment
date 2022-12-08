@@ -6,7 +6,7 @@ import { Con } from "../Context/AppContext";
 
 const Navbar = () => {
   const value = useContext(Con);
-  const { logoutUser } = value;
+  const { logoutUser, id } = value;
   return (
     <div id="navbar">
       <img
@@ -19,30 +19,30 @@ const Navbar = () => {
           Sign Up
         </Link>
       </div>
+
       <div>
         <Link className="white" to="/signin">
           Sign In
         </Link>
       </div>
       <div>
-        <Link className="white" to="/user/id">
+        <button
+          style={{ background: "red", color: "white", padding: "10%" }}
+          onClick={() => logoutUser()}
+        >
+          <pre>Log Out</pre>
+        </button>
+      </div>
+      <div>
+        <Link className="white" to={`/user/${id}`}>
           Profile
         </Link>
       </div>
 
       <div>
-        <Link className="white" to="/timeline/id">
+        <Link className="white" to={`/timeline/${id}`}>
           Timeline
         </Link>
-      </div>
-
-      <div>
-        <button
-          style={{ background: "red", color: "white", padding: "2px" }}
-          onClick={() => logoutUser()}
-        >
-          Log Out
-        </button>
       </div>
     </div>
   );
