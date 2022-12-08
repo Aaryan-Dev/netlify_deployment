@@ -6,7 +6,7 @@ const Con = React.createContext();
 
 function AppContextProvider(props) {
   const [isAuth, setAuth] = useState(false);
-  const [token, setToken] = useState(null);
+  // const [token, setToken] = useState(null);
   const [id, setId] = useState(null);
   // const navigate = useNavigate();
 
@@ -70,9 +70,7 @@ function AppContextProvider(props) {
   };
 
   return (
-    <Con.Provider
-      value={{ isAuth, token, loginUser, getinUser, logoutUser, id }}
-    >
+    <Con.Provider value={{ isAuth, loginUser, getinUser, logoutUser, id }}>
       {props.children}
     </Con.Provider>
   );
