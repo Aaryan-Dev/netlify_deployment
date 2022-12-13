@@ -31,7 +31,7 @@ const UserProfile = () => {
         // console.log(res.bmi_data);
         console.log(res);
         setEmail(res.bmi_data[0].email);
-        setName(res.bmi_data[0].id);
+        setName(res.bmi_data[0].username);
         // setObj(res.bmi_data);
         // for (let i = 0; i < res.length; i++) {
         //   if (Number(param.id) === res[i].id) {
