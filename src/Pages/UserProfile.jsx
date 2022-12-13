@@ -15,7 +15,12 @@ const UserProfile = () => {
   const { logoutUser } = value;
 
   useEffect(() => {
-    fetch("https://json-db.onrender.com/user")
+    fetch("https://json-db.onrender.com/user", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
       .then((res) => {
         return res.json();
       })

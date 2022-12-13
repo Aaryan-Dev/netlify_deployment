@@ -7,8 +7,6 @@ import { useContext } from "react";
 import { Con } from "../Context/AppContext";
 
 let initial = {
-  username: "",
-
   email: "",
   password: "",
 };
@@ -20,11 +18,11 @@ function SignIn() {
 
   const value = useContext(Con);
 
-  const { isAuth, getinUser, id } = value;
+  const { isAuth, getinUser } = value;
   // console.log(isAuth);
 
   if (isAuth) {
-    return <Navigate to={`/user/${id}`} />;
+    return <Navigate to={`/profile`} />;
   }
 
   const handle = (e) => {
@@ -36,7 +34,7 @@ function SignIn() {
   const sub = (e) => {
     e.preventDefault();
 
-    if (form.username === "" || form.email === "" || form.password === "") {
+    if (form.email === "" || form.password === "") {
       alert("Enter all Fields");
     } else {
       getinUser(form);
@@ -44,53 +42,56 @@ function SignIn() {
   };
 
   return (
-    <div id="get">
-      <form id="form" onSubmit={sub} data-testid="login-form">
-        <div>
-          <label>
-            Username:
-            <input
-              onChange={handle}
-              name="username"
-              value={form.username}
-              data-testid="username-input"
-              type="text"
-              placeholder="username"
-            />
-          </label>
-        </div>
+    <>
+      Log in
+      <div id="get">
+        <form id="form" onSubmit={sub} data-testid="login-form">
+          {/* <div>
+            <label>
+              Name:
+              <input
+                onChange={handle}
+                name="username"
+                value={form.username}
+                data-testid="username-input"
+                type="text"
+                placeholder="username"
+              />
+            </label>
+          </div> */}
 
-        <div>
-          <label>
-            Email:
-            <input
-              onChange={handle}
-              name="email"
-              value={form.email}
-              data-testid="email-input"
-              type="email"
-              placeholder="email"
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Password:
-            <input
-              onChange={handle}
-              value={form.password}
-              name="password"
-              data-testid="password-input"
-              type="password"
-              placeholder="password"
-            />
-          </label>
-        </div>
-        <div>
-          <input data-testid="form-submit" type="submit" value="SUBMIT" />
-        </div>
-      </form>
-    </div>
+          <div>
+            <label>
+              Email:
+              <input
+                onChange={handle}
+                name="email"
+                value={form.email}
+                data-testid="email-input"
+                type="email"
+                placeholder="email"
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              Password:
+              <input
+                onChange={handle}
+                value={form.password}
+                name="password"
+                data-testid="password-input"
+                type="password"
+                placeholder="password"
+              />
+            </label>
+          </div>
+          <div>
+            <input data-testid="form-submit" type="submit" value="SUBMIT" />
+          </div>
+        </form>
+      </div>
+    </>
   );
 }
 export default SignIn;

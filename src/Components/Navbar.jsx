@@ -6,14 +6,13 @@ import { Con } from "../Context/AppContext";
 
 const Navbar = () => {
   const value = useContext(Con);
-  const { logoutUser, id } = value;
+  const { logoutUser } = value;
   return (
     <div id="navbar">
-      <img
+      {/* <img
         src="https://notion-emojis.s3-us-west-2.amazonaws.com/prod/svg-twitter/1f426.svg"
         alt="tweeter"
-      />
-
+      /> */}
       <div>
         <Link className="white" to="/">
           Sign Up
@@ -21,8 +20,8 @@ const Navbar = () => {
       </div>
 
       <div>
-        <Link className="white" to="/signin">
-          Sign In
+        <Link className="white" to="/login">
+          Login In
         </Link>
       </div>
       <div>
@@ -31,14 +30,14 @@ const Navbar = () => {
         </button>
       </div>
       <div>
-        <Link className="white" to={`/user/${id}`}>
+        <Link className="white" to={`/profile`}>
           Profile
         </Link>
       </div>
 
       <div>
-        <Link className="white" to={`/timeline/${id}`}>
-          Timeline
+        <Link className="white" to={`/calulateEMI`}>
+          Emi Calculator
         </Link>
       </div>
     </div>

@@ -11,9 +11,9 @@ const AllRoutes = () => {
     <div>
       <Routes>
         <Route path="/" element={<SignUp />} />
-        <Route path="/signin" element={<SignIn />} />
+        <Route path="/login" element={<SignIn />} />
         <Route
-          path="/user/:id"
+          path="/profile"
           element={
             <PrivateRoute>
               <UserProfile />
@@ -21,7 +21,7 @@ const AllRoutes = () => {
           }
         />
         <Route
-          path="/timeline/:id"
+          path="/calulateEMI"
           element={
             <PrivateRoute>
               <TimeLine />
