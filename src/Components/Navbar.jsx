@@ -1,43 +1,26 @@
 import React from "react";
 import "../App.css";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { Con } from "../Context/AppContext";
+// import { useContext } from "react";
+// import { Con } from "../Context/AppContext";
 
 const Navbar = () => {
-  const value = useContext(Con);
-  const { logoutUser } = value;
+  // const value = useContext(Con);
+  // const { logoutUser } = value;
   return (
     <div id="navbar">
-      {/* <img
-        src="https://notion-emojis.s3-us-west-2.amazonaws.com/prod/svg-twitter/1f426.svg"
-        alt="tweeter"
-      /> */}
+      <img
+        src="https://notion-emojis.s3-us-west-2.amazonaws.com/prod/svg-twitter/1f6cd-fe0f.svg"
+        alt="shop"
+      />
       <div>
         <Link className="white" to="/">
-          Sign Up
-        </Link>
-      </div>
-
-      <div>
-        <Link className="white" to="/login">
-          Login In
+          Add List
         </Link>
       </div>
       <div>
-        <button id="log" onClick={() => logoutUser()}>
-          <pre>Log Out</pre>
-        </button>
-      </div>
-      <div>
-        <Link className="white" to={`/profile`}>
-          Profile
-        </Link>
-      </div>
-
-      <div>
-        <Link className="white" to={`/calulateEMI`}>
-          Emi Calculator
+        <Link className="white" to={`/bookmarks`}>
+          Bookmarks
         </Link>
       </div>
     </div>
