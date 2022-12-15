@@ -21,7 +21,23 @@ const Display = ({ data, action }) => {
       });
   };
 
-  const book = (id) => {};
+  const book = (val) => {
+    fetch("https://a-backend.onrender.com/bookmark", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: val }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        console.log(res);
+        action();
+        alert("Bookmarked successfully");
+      });
+  };
 
   return (
     <>
