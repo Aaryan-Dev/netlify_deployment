@@ -1,53 +1,24 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../App.css";
-import { Display } from "../Components/Display";
 
 let initial = {
-  title: "",
-  quantity: "",
-  priority: "",
-  description: "",
+  name: "",
+  difficulty: "",
 };
 
 function AddList() {
-  const [data, setData] = useState([]);
   const [form, setform] = useState(initial);
+
+  const navigate = useNavigate();
 
   const handle = (e) => {
     const { name, value } = e.target;
     setform({ ...form, [name]: value });
   };
 
-  useEffect(() => {
-    fetch("https://a-backend.onrender.com/getlist")
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        console.log(res);
-        setData(res.bmi_data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [data.length]);
-
-  const disp = () => {
-    fetch("https://a-backend.onrender.com/getlist")
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        console.log(res);
-        setData(res.bmi_data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   const addList = (form) => {
-    fetch("https://a-backend.onrender.com/addList", {
+    fetch("https://wordgame-b043.onrender.com/adduser", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -59,17 +30,18 @@ function AddList() {
       })
       .then((res) => {
         console.log(res);
-        alert("Data added successfully");
-      })
-      .then(() => disp());
+        localStorage.setItem("playtoken", res.msg);
+        navigate("/playzone");
+      });
   };
+
   const sub = (e) => {
     e.preventDefault();
     if (
-      form.title === "" ||
-      form.quantity === "" ||
-      form.priority === "" ||
-      form.description === ""
+      form.name === "" ||
+      form.difficulty === "" ||
+      form.name === undefined ||
+      form.difficulty === undefined
     ) {
       alert("Enter all Fields");
     } else {
@@ -83,51 +55,33 @@ function AddList() {
       <div id="get">
         <form id="form" onSubmit={sub} data-testid="login-form">
           <div>
-            <label>
-              Title:
-              <input
-                onChange={handle}
-                name="title"
-                value={form.title}
-                type="text"
-                placeholder="title"
-              />
-            </label>
+            <pre>
+              <label>
+                Name:
+                <input
+                  onChange={handle}
+                  name="name"
+                  value={form.name}
+                  type="text"
+                  placeholder="name"
+                />
+              </label>
+            </pre>
           </div>
           <div>
             <label>
-              Quantity:
-              <input
+              Difficulty:
+              <select
+                value={form.difficulty}
+                name="difficulty"
                 onChange={handle}
-                name="quantity"
-                value={form.quantity}
-                type="text"
-                placeholder="quantity"
-              />
-            </label>
-          </div>
-          <div>
-            <label>
-              Priority:
-              <input
-                onChange={handle}
-                value={form.priority}
-                name="priority"
-                type="text"
-                placeholder="priority"
-              />
-            </label>
-          </div>
-          <div>
-            <label>
-              Description:
-              <input
-                onChange={handle}
-                value={form.description}
-                name="description"
-                type="text"
-                placeholder="description"
-              />
+              >
+                <option value="">Level</option>
+                <option value="low">Low level - 30 seconds</option>
+                <option value="mid">Medium level - 20 seconds</option>
+                <option value="high">High level - 10 seconds</option>
+              </select>
+              {/* <input type="text" placeholder="difficulty" /> */}
             </label>
           </div>
           <div>
@@ -135,7 +89,6 @@ function AddList() {
           </div>
         </form>
       </div>
-      <Display data={data} action={disp} />
     </>
   );
 }

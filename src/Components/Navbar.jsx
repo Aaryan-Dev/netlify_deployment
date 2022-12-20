@@ -10,17 +10,22 @@ const Navbar = () => {
   return (
     <div id="navbar">
       <img
-        src="https://notion-emojis.s3-us-west-2.amazonaws.com/prod/svg-twitter/1f6cd-fe0f.svg"
+        src="https://notion-emojis.s3-us-west-2.amazonaws.com/prod/svg-twitter/1f3af.svg"
         alt="shop"
       />
       <div>
         <Link className="white" to="/">
-          Add List
+          Home
         </Link>
       </div>
       <div>
-        <Link className="white" to={`/bookmarks`}>
-          Bookmarks
+        <Link className="white" to={`/playzone`}>
+          Playzone
+        </Link>
+      </div>
+      <div>
+        <Link className="white" to={`/dashboard`}>
+          Dashboard
         </Link>
       </div>
     </div>

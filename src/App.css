@@ -5,6 +5,45 @@
 
 }
 
+
+.captcha {
+  width: 100%;
+  margin: auto;
+
+  /* display: inline-block; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  padding: 0.2em;
+  background-color: white;
+  border: 1px solid #A9A9A9;
+}
+
+.lablee {
+  color: orange;
+  font-size: 40px;
+}
+
+table{
+  color: white;
+}
+
+.inputin {
+  width: 70%;
+  height: 100px;
+  padding: 20px;
+  font-size: 20px;
+  border: none;
+  box-sizing: border-box;
+}
+
+.simple-keyboard {
+  max-width: 850px;
+}
+
+
 #get{
   margin: auto;
   margin-top: 1%;
