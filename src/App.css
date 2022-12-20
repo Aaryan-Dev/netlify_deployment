@@ -30,13 +30,15 @@ table{
   color: white;
 }
 
-.inputin {
-  width: 70%;
-  height: 100px;
+#wordbox {
+  width:65%;
+  color: white;
+  background-color: black;
+  border: 1px solid black;
+  height: 50px;
   padding: 20px;
   font-size: 20px;
   border: none;
-  box-sizing: border-box;
 }
 
 .simple-keyboard {

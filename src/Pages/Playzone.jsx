@@ -7,6 +7,8 @@ import { useEffect } from "react";
 
 function Playzone() {
   const [input, setInput] = useState("");
+  const [what, setWhat] = useState("");
+  const [all, setAll] = useState([]);
   const [layout, setLayout] = useState("default");
   const keyboard = useRef();
   const [random, setRandom] = useState("");
@@ -29,18 +31,40 @@ function Playzone() {
       .then((res) => {
         console.log(res);
 
-        setRandom(res.random);
+        if (res.random === undefined) {
+          setRandom("");
+          setWhat("Choose difficulty level first");
+        } else {
+          setRandom(res.random);
+          setWhat(res.user_name);
+        }
       });
   };
 
+  var new_input;
+
   const onChange = (input) => {
-    if (input === random) {
-      console.log("done");
-      setInput("");
+    let splice_sum = 0;
+
+    for (let s = 0; s < all.length; s++) {
+      splice_sum = splice_sum + all[s];
+    }
+    new_input = input.substring(splice_sum);
+    if (input === random || new_input === random) {
+      setAll([...all, random.length]);
+      setInput("✅");
       getDiff_data();
     } else {
-      setInput(input);
-      console.log("Input changed", input);
+      let splice_sum = 0;
+      for (let s = 0; s < all.length; s++) {
+        splice_sum = splice_sum + all[s];
+      }
+      new_input = input.substring(splice_sum);
+      input = new_input;
+      console.log(all);
+      console.log(new_input, random.length);
+      setInput(new_input);
+      console.log("Input changed", new_input);
     }
   };
 
@@ -54,27 +78,19 @@ function Playzone() {
     if (button === "{shift}" || button === "{lock}") handleShift();
   };
 
-  const onChangeInput = (event) => {
-    const input = event.target.value;
-
-    setInput(input);
-    keyboard.current.setInput(input);
-  };
-
   return (
     <div className="App">
       <div className="captcha">
+        <h2>
+          Welcome "<u>{what}</u>"
+        </h2>
         <label className="lablee" htmlFor="wordbox-1">
           {`${random}`}
         </label>
 
-        <input
-          id="wordbox"
-          className="inputin"
-          value={input}
-          placeholder={"Tap on the virtual keyboard to start"}
-          onChange={onChangeInput}
-        />
+        <div id="wordbox" className="inputin">
+          {input}
+        </div>
         <Keyboard
           keyboardRef={(r) => (keyboard.current = r)}
           layoutName={layout}
